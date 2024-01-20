@@ -3,7 +3,7 @@ version: "3.9"
 services:
   app:
     build:
-      context:
+      context: .
     restart: always
     volumes:
       - static-data:/vol/web
@@ -18,10 +18,10 @@ services:
       - db
 
   db:
-    image: postgresql:13-alpine
+    image: postgres:13-alpine
     restart: always
     volumes:
-      - postgresql-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
@@ -34,17 +34,10 @@ services:
     depends_on:
       - app
     ports:
-      -30:3000
+      - 80:8000
     volumes:
       - static-data:/vol/static
 
 volumes:
-   postgres-data:
-   static-data:
-
-  
-
-
-  
-
-  
+  postgres-data:
+  static-data:
